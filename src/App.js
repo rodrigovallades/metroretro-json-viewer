@@ -101,7 +101,7 @@ export default function App() {
             fontFamily: ["Consolas", "Monaco", '"Lucida Console"'].join(",")
           }
         }}
-        label="Metroretro JSON"
+        label="Metroretro JSON parser"
         multiline
         onChange={handleTextareaChange}
         rows={15}
