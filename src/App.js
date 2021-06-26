@@ -1,6 +1,7 @@
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
 import Chip from "@material-ui/core/Chip";
+import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -14,7 +15,7 @@ const Section = ({ section }) => {
   const [title, cards] = section;
 
   return (
-    <Paper elevation={16}>
+    <Paper elevation={4}>
       <Box p={2} mt={2}>
         <Typography variant="h6">
           {title}
@@ -91,7 +92,7 @@ export default function App() {
   };
 
   return (
-    <div className="App">
+    <Container maxWidth="md">
       <TextField
         fullWidth
         id="metroretro-json"
@@ -104,7 +105,7 @@ export default function App() {
         label="Metroretro JSON parser"
         multiline
         onChange={handleTextareaChange}
-        rows={15}
+        rows={10}
         variant="filled"
       />
       <Snackbar
@@ -130,6 +131,6 @@ export default function App() {
         Object.entries(textareaContent).map((section) =>
           renderSection(section)
         )}
-    </div>
+    </Container>
   );
 }
