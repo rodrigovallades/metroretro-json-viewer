@@ -1,15 +1,18 @@
 {
-  "name": "metroretro-json-viewer",
+  "name": "metroretro-json-beautifier",
+  "author": "Rodrigo Vallades <rodrigo.vallades@gmail.com> (https://github.com/rodrigovallades/)",
   "version": "1.0.0",
-  "description": "",
+  "description": "Formats exported JSON from Metroretro",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "@material-ui/core": "4.11.4",
+    "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-scripts": "4.0.0"
+    "react-scripts": "4.0.0",
+    "react-wordcloud": "1.2.7"
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",

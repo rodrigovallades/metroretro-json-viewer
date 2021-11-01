@@ -1,136 +1,64 @@
 import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
-import Chip from "@material-ui/core/Chip";
-import Container from "@material-ui/core/Container";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+
 import { useState } from "react";
 
-const Section = ({ section }) => {
-  const [title, cards] = section;
-
-  return (
-    <Paper elevation={4}>
-      <Box p={2} mt={2}>
-        <Typography variant="h6">
-          {title}
-          <Box ml={1} clone>
-            <Chip label={`${cards.length} cards`} />
-          </Box>
-        </Typography>
-        {cards.map((card) => (
-          <SectionItem author={card.author} content={card.content} />
-        ))}
-      </Box>
-    </Paper>
-  );
-};
-
-const SectionItem = ({ author, content }) => {
-  return (
-    <List dense>
-      <ListItem disableGutters>
-        <ListItemText
-          primary={content}
-          secondary={
-            <Typography component="span" variant="body2" color="textSecondary">
-              {author.name}
-            </Typography>
-          }
-        />
-      </ListItem>
-    </List>
-  );
-};
+import Parser from "./components/parser.component";
+import SnackbarContext, { defaultValue } from "./snackbar.context";
 
 export default function App() {
-  const [textareaContent, setTextareaContent] = useState(null);
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    message: "",
-    severity: "danger"
+  const [snackbarContext, setSnackbarContext] = useState({
+    ...defaultValue,
+    showErrorAlert: (message) => {
+      setSnackbarContext((state) => ({
+        ...state,
+        open: true,
+        message,
+        severity: "error"
+      }));
+    },
+    showSuccessAlert: (message) => {
+      setSnackbarContext((state) => ({
+        ...state,
+        open: true,
+        message,
+        severity: "success"
+      }));
+    }
   });
 
-  const renderSection = (section) => {
-    const [, cards] = section;
-
-    if (cards.length) return <Section section={section} />;
-
-    return null;
-  };
-
-  const handleSnackbarClose = () => {
-    setSnackbarState({
-      ...snackbarState,
-      open: false
-    });
-  };
-
-  const handleTextareaChange = (e) => {
-    try {
-      const parsedTextarea = JSON.parse(e.target.value);
-      setTextareaContent(parsedTextarea);
-      setSnackbarState({
-        ...snackbarState,
-        open: true,
-        message: "JSON parsed",
-        severity: "success"
-      });
-    } catch (e) {
-      setSnackbarState({
-        ...snackbarState,
-        open: true,
-        message: e.message,
-        severity: "error"
-      });
+  const handleSnackbarClose = (_, reason) => {
+    if (reason === "clickaway") {
+      return;
     }
+
+    setSnackbarContext((state) => ({ ...state, open: false }));
   };
 
   return (
-    <Container maxWidth="md">
-      <TextField
-        fullWidth
-        id="metroretro-json"
-        inputProps={{
-          style: {
-            fontSize: 12,
-            fontFamily: ["Consolas", "Monaco", '"Lucida Console"'].join(",")
-          }
-        }}
-        label="Metroretro JSON parser"
-        multiline
-        onChange={handleTextareaChange}
-        rows={10}
-        variant="filled"
-      />
+    <>
+      <SnackbarContext.Provider value={snackbarContext}>
+        <Parser />
+      </SnackbarContext.Provider>
       <Snackbar
         anchorOrigin={{
           vertical: "top",
           horizontal: "right"
         }}
-        autoHideDuration={5000}
-        key={`snackbar-${snackbarState.severity}`}
+        autoHideDuration={4000}
+        key={`snackbar-${snackbarContext.severity}`}
         onClose={handleSnackbarClose}
-        open={snackbarState.open}
+        open={snackbarContext.open}
       >
         <Alert
           onClose={handleSnackbarClose}
-          severity={snackbarState.severity}
+          severity={snackbarContext.severity}
           variant="filled"
         >
-          {snackbarState.message}
+          {snackbarContext.message}
         </Alert>
       </Snackbar>
-
-      {textareaContent &&
-        Object.entries(textareaContent).map((section) =>
-          renderSection(section)
-        )}
-    </Container>
+    </>
   );
 }
