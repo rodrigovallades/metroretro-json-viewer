@@ -1,5 +1,7 @@
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+
+import React from 'react';
 
 const SimpleOutput = ({ section }) => {
   const [title, cards] = section;

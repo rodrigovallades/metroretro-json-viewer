@@ -1,18 +1,18 @@
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Divider from "@material-ui/core/Divider";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import SnackbarContext from "../snackbar.context";
-import BeautifulOutput from "./beautiful-output.component";
-import WordCloud from "./wordcloud.component";
-import SimpleOutput from "./simple-output.component";
-import { validateSection } from "./parser.helpers";
+import SnackbarContext from '../snackbar.context';
+import BeautifulOutput from './beautiful-output.component';
+import WordCloud from './wordcloud.component';
+import SimpleOutput from './simple-output.component';
+import { validateSection } from './parser.helpers';
 
 const Parser = ({ input }) => {
   const [parsingError, setParsingError] = useState(false);
@@ -44,7 +44,7 @@ const Parser = ({ input }) => {
       if (error) return setParsingError(error);
 
       setTextareaContent(parsedTextarea);
-      showSuccessAlert("JSON parsed");
+      showSuccessAlert('JSON parsed');
     } catch (e) {
       setTextareaContent(null);
       showErrorAlert(e.message);
@@ -79,7 +79,7 @@ const Parser = ({ input }) => {
                 <Switch
                   checked={beautifulOutput}
                   color="primary"
-                  inputProps={{ "aria-label": "primary checkbox" }}
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
                   name="simpleOutput"
                   onChange={handleOutputTypeChange}
                 />
@@ -111,7 +111,7 @@ const Parser = ({ input }) => {
             inputProps={{
               style: {
                 fontSize: 12,
-                fontFamily: ["Consolas", "Monaco", "Lucida Console"].join(",")
+                fontFamily: ['Consolas', 'Monaco', 'Lucida Console'].join(',')
               }
             }}
             label="Metroretro JSON parser"

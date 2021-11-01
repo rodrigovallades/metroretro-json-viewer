@@ -1,10 +1,12 @@
-import Box from "@material-ui/core/Box";
-import ReactWordcloud from "react-wordcloud";
+import Box from '@material-ui/core/Box';
+import ReactWordcloud from 'react-wordcloud';
+
+import React from 'react';
 
 const options = {
   deterministic: true,
   enableTooltip: false,
-  fontFamily: "impact",
+  fontFamily: 'impact',
   fontSizes: [12, 80],
   padding: 5,
   rotations: 0,
@@ -15,7 +17,7 @@ const extractWords = (content) => {
   const wordHashMap = {};
 
   content.forEach((content) => {
-    const words = content.split(" ");
+    const words = content.split(' ');
 
     words.forEach((word) => {
       const parsedWord = word.toLowerCase();
