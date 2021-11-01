@@ -1,11 +1,10 @@
-import Alert from "@material-ui/lab/Alert";
-import Box from "@material-ui/core/Box";
-import Snackbar from "@material-ui/core/Snackbar";
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
-import { useState } from "react";
+import React, { useState } from 'react';
 
-import Parser from "./components/parser.component";
-import SnackbarContext, { defaultValue } from "./snackbar.context";
+import Parser from './components/parser.component';
+import SnackbarContext, { defaultValue } from './snackbar.context';
 
 export default function App() {
   const [snackbarContext, setSnackbarContext] = useState({
@@ -15,7 +14,7 @@ export default function App() {
         ...state,
         open: true,
         message,
-        severity: "error"
+        severity: 'error'
       }));
     },
     showSuccessAlert: (message) => {
@@ -23,13 +22,13 @@ export default function App() {
         ...state,
         open: true,
         message,
-        severity: "success"
+        severity: 'success'
       }));
     }
   });
 
   const handleSnackbarClose = (_, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -43,8 +42,8 @@ export default function App() {
       </SnackbarContext.Provider>
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right"
+          vertical: 'top',
+          horizontal: 'right'
         }}
         autoHideDuration={4000}
         key={`snackbar-${snackbarContext.severity}`}
