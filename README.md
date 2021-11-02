@@ -4,6 +4,10 @@ This is small app that is able to parse a [Metro Retro](https://metroretro.io/) 
 
 Just a weekend project for me. :)
 
+## Preview
+
+https://metroretro-json-viewer-vallades.vercel.app/
+
 ## Deployment
 
 At this moment I'm using `Vercel` to deploy this app. To embed the version during Vercel's build step:
