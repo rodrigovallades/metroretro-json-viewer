@@ -1,4 +1,5 @@
 import Box from '@material-ui/core/Box';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -19,6 +20,7 @@ import {
   validateSection
 } from './parser.helpers';
 import DownloadButton from './download-button.component';
+import CopyButton from './copy-button.component';
 
 const Parser = ({ input }) => {
   const [parsingError, setParsingError] = useState(false);
@@ -61,6 +63,8 @@ const Parser = ({ input }) => {
     setBeautifulOutput(event.target.checked);
   };
 
+  const handleCopy = () => showSuccessAlert('Copied to clipboard');
+
   const renderOutput = () => {
     if (!textareaContent || parsingError) return null;
 
@@ -75,6 +79,16 @@ const Parser = ({ input }) => {
           <Box mt={2}>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs>
+                <ButtonGroup
+                  disableElevation
+                  variant="outlined"
+                  color="primary"
+                >
+                  <DownloadButton content={textareaContent} />
+                  <CopyButton content={textareaContent} onCopy={handleCopy} />
+                </ButtonGroup>
+              </Grid>
+              <Grid item>
                 <FormControlLabel
                   control={
                     <Switch
@@ -88,7 +102,6 @@ const Parser = ({ input }) => {
                   label="Beautify output"
                 />
               </Grid>
-              <DownloadButton content={textareaContent} />
             </Grid>
           </Box>
         </Box>
