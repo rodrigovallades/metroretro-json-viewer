@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +13,11 @@ import SnackbarContext from '../snackbar.context';
 import BeautifulOutput from './beautiful-output.component';
 import WordCloud from './wordcloud.component';
 import SimpleOutput from './simple-output.component';
-import { validateSection } from './parser.helpers';
+import {
+  getAllCards,
+  getSectionsFromParsed,
+  validateSection
+} from './parser.helpers';
 
 const Parser = ({ input }) => {
   const [parsingError, setParsingError] = useState(false);
@@ -59,18 +64,11 @@ const Parser = ({ input }) => {
     if (!textareaContent || parsingError) return null;
 
     const OutputComponent = beautifulOutput ? BeautifulOutput : SimpleOutput;
-    const sections = Object.entries(textareaContent);
-
-    const allCards = [].concat(
-      ...sections.map((section) => {
-        const [, cards] = section;
-
-        return cards;
-      })
-    );
+    const sections = getSectionsFromParsed(textareaContent);
+    const allCards = getAllCards(textareaContent);
 
     return (
-      <>
+      <Container maxWidth="md">
         <Box mb={2}>
           <WordCloud cards={allCards} />
           <Box mt={2}>
@@ -93,7 +91,7 @@ const Parser = ({ input }) => {
 
           return <OutputComponent key={title} section={section} />;
         })}
-      </>
+      </Container>
     );
   };
 
@@ -123,7 +121,7 @@ const Parser = ({ input }) => {
         </Container>
       </Box>
       <Divider />
-      <Container maxWidth="md">{renderOutput()}</Container>
+      {renderOutput()}
     </>
   );
 };
