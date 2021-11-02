@@ -18,6 +18,7 @@ import {
   getSectionsFromParsed,
   validateSection
 } from './parser.helpers';
+import DownloadButton from './download-button.component';
 
 const Parser = ({ input }) => {
   const [parsingError, setParsingError] = useState(false);
@@ -72,18 +73,23 @@ const Parser = ({ input }) => {
         <Box mb={2}>
           <WordCloud cards={allCards} />
           <Box mt={2}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={beautifulOutput}
-                  color="primary"
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                  name="simpleOutput"
-                  onChange={handleOutputTypeChange}
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={beautifulOutput}
+                      color="primary"
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                      name="simpleOutput"
+                      onChange={handleOutputTypeChange}
+                    />
+                  }
+                  label="Beautify output"
                 />
-              }
-              label="Beautify output"
-            />
+              </Grid>
+              <DownloadButton content={textareaContent} />
+            </Grid>
           </Box>
         </Box>
         {sections.map((section) => {
