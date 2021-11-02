@@ -6,6 +6,10 @@ import React, { useState } from 'react';
 import Parser from './components/parser.component';
 import SnackbarContext, { defaultValue } from './snackbar.context';
 
+global['metroretro-json-viewer'] = {
+  version: process.env.REACT_APP_VERSION
+};
+
 export default function App() {
   const [snackbarContext, setSnackbarContext] = useState({
     ...defaultValue,
