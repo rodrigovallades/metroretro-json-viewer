@@ -17,9 +17,10 @@ const extractWords = (content) => {
   const wordHashMap = {};
 
   content.forEach((content) => {
+    if (!content) return;
     const words = content.split(' ');
 
-    words.forEach((word) => {
+    return words.forEach((word) => {
       const parsedWord = word.toLowerCase();
 
       if (parsedWord.length < 2) return;
